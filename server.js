@@ -1,5 +1,8 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+
+const opn = require('opn');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -155,4 +158,6 @@ app.get('/shortest-path', (req, res) => {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+
+    opn('http://localhost:3000');
 });
