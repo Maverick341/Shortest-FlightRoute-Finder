@@ -49,4 +49,6 @@ button:hover {
 
 #visualization-container {
     margin-top: 20px;
+    width: 100%; /* Adjust width as needed */
+    height: 300px; /* Adjust height as needed */
 }
