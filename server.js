@@ -38,55 +38,55 @@ class PriorityQueue {
 
 
 // Function to calculate shortest path using Dijkstra's algorithm
-function calculateShortestPath(source, destination) {
-    // Initialize distance array and priority queue
-    const distances = {}; // Stores shortest distance to each airport
-    const pq = new PriorityQueue(); // Priority queue to store airports based on distance
+function calculateShortestPath(SourceIATA, NeighborIATA, airports) {
+    // Initialize Distance array and priority queue
+    const Distances = {}; // Stores shortest Distance to each airport
+    const pq = new PriorityQueue(); // Priority queue to store airports based on Distance
     const prev = {}; // Stores previous airport in the shortest path
 
-    // Initialize distances to infinity and previous to null
+    // Initialize Distances to infinity and previous to null
     for (const airport of Object.keys(airports)) {
-        distances[airport] = Infinity;
+        Distances[airport] = Infinity;
         prev[airport] = null;
     }
-    distances[source] = 0;
+    Distances[SourceIATA] = 0;
 
-    // Add source airport to priority queue
-    pq.enqueue(source, 0);
+    // Add SourceIATA airport to priority queue
+    pq.enqueue(SourceIATA, 0);
 
     // Dijkstra's algorithm
     while (!pq.isEmpty()) {
         const currentAirport = pq.dequeue().element;
 
-        // If current airport is the destination, stop algorithm
-        if (currentAirport === destination) break;
+        // If current airport is the NeighborIATA, stop algorithm
+        if (currentAirport === NeighborIATA) break;
 
         // Iterate through neighbors of current airport
         for (const neighbor of airports[currentAirport]) {
-            const { airport: nextAirport, distance } = neighbor;
+            const { airport: nextAirport, Distance } = neighbor;
 
-            // Calculate new distance
-            const newDistance = distances[currentAirport] + distance;
+            // Calculate new Distance
+            const newDistance = Distances[currentAirport] + Distance;
 
-            // If new distance is shorter, update distances and previous
-            if (newDistance < distances[nextAirport]) {
-                distances[nextAirport] = newDistance;
+            // If new Distance is shorter, update Distances and previous
+            if (newDistance < Distances[nextAirport]) {
+                Distances[nextAirport] = newDistance;
                 prev[nextAirport] = currentAirport;
                 pq.enqueue(nextAirport, newDistance);
             }
         }
     }
 
-    // Reconstruct shortest path from source to destination
+    // Reconstruct shortest path from SourceIATA to NeighborIATA
     const shortestPath = [];
-    let current = destination;
+    let current = NeighborIATA;
     while (current !== null) {
         shortestPath.unshift(current);
         current = prev[current];
     }
 
     // Return the shortest path and its length
-    return { path: shortestPath, length: distances[destination] };
+    return { path: shortestPath, length: Distances[NeighborIATA] };
 }
 
 
@@ -121,21 +121,50 @@ app.get('/airports', (req, res) => {
 
 // Define API endpoint to calculate shortest path between airports
 app.get('/shortest-path', (req, res) => {
-    const { source, destination } = req.query;
+    const { SourceIATA, NeighborIATA } = req.query;
 
-    // Implement logic to calculate shortest path (not provided in this example)
-    const shortestPath = calculateShortestPath(source, destination);
+    // Ensure SourceIATA and NeighborIATA airports are provided
+    if (!SourceIATA || !NeighborIATA) {
+        return res.status(400).json({ error: 'SourceIATA and NeighborIATA airports are required' });
+    }
 
-    // Dummy response for demonstration purposes
-    // const shortestPath = {
-    //     source,
-    //     destination,
-    //     path: ['Airport A', 'Airport B', 'Airport C'] // Dummy path data
-    // };
+    // Check if SourceIATA and NeighborIATA airports exist in the database
+    db.all('SELECT * FROM Neighbors', (err, rows) => {
+        if (err) {
+            console.error('Error querying neighbor data:', err);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
 
-    res.json(shortestPath);
+        // Initialize the airports object
+        const airports = {};
+
+        // Process the rows to populate the airports object
+        rows.forEach(row => {
+            const sourceAirport = row.SourceIATA;
+            const neighborAirport = row.NeighborIATA;
+            const distance = row.Distance;
+
+            // Check if the source airport exists in the airports object, if not, initialize it
+            if (!airports[sourceAirport]) {
+                airports[sourceAirport] = [];
+            }
+
+            // Add the neighbor and distance to the source airport's array of neighbors
+            airports[sourceAirport].push({ airport: neighborAirport, distance: distance });
+        });
+
+        // Now, you can use the populated airports object for Dijkstra's algorithm
+        const shortestPath = calculateShortestPath(sourceAirport, destinationAirport, airports);
+
+        // Send the calculated shortest path in the response
+        if (shortestPath) {
+            return res.json(shortestPath);
+        } else {
+            // Handle case where no path is found (optional)
+            return res.status(404).json({ error: 'No path found between these airports' });
+        }
+    });
 });
-
 
 
 // Start the server
