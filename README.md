@@ -1,19 +1,83 @@
-# Shortest FlightRoute Finder
+# Shortest Flight Route Finder
 
+This web application is designed to find the shortest flight route between two airports. It utilizes Dijkstra's algorithm to calculate the shortest path in a graph representation of airport connections. The project includes both client-side and server-side components, with the server written in Node.js and SQLite used as the database for storing airport and route information.
 
 ***
-__To run your project, follow these steps:__
 
-1. _Navigate to Your Project Directory:_ Open a terminal or command prompt and navigate to the directory where your project files are located. For example, if your project is located in G:\S.Y\Sem4\Projects\FlightRoute Explorer, use the cd command to change to that directory:
-cd G:\S.Y\Sem4\Projects\FlightRoute Explorer
+## Contributors
 
-2. _Install Dependencies:_ If you haven't already done so, install the required dependencies for your project using npm. Run the following command:
-__npm install__. This will install all the dependencies listed in your project's package.json file, including Express and sqlite3.
+- [Sushant Shinde](https://github.com/Maverick341) - Lead Developer
+- [Vardhan Bang](https://github.com/vardhanbang) - Collaborator: Documentation and Coding Ideas
+- [Jaydeep Tayshete](https://github.com/Chefjdeep) - Collaborator: Documentation and Coding Ideas
 
-3. _Start the Server:_ Once the dependencies are installed, start your Node.js server by running the server.js file using Node.js. Run the following command:
-__node server.js__. This will start your server, and you should see a message indicating that the server is running, along with any log messages or errors from your server code.
-
-4. _Access the Web Page:_ Open a web browser and navigate to http://localhost:<PORT> , replacing <PORT> with the port number your server is running on (usually 3000 by default). For example, if your server is running on port 3000, you would navigate to http://localhost:3000. This will load your index.html page, and you should see the Airport Path Visualization web page with the source and destination dropdowns.
-
-5. _Select Source and Destination:_ Select source and destination airports from the dropdowns and click the "Visualize Shortest Path" button. This should trigger an event that fetches airport data from the server and logs the selected airports to the console.
 ***
+
+## Features
+
+- Calculate the shortest flight route between two airports
+- Interactive user interface
+- Error handling for invalid inputs
+  
+***
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- SQLite
+- HTML
+- CSS
+- JavaScript
+    
+***
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Maverick341/Shortest-FlightRoute-Finder.git
+   
+2. Navigate to the project directory:
+   ```bash
+   cd Shortest-FlightRoute-Finder
+
+3. Install dependencies:
+   ```bash
+   npm install
+
+4. Start the server:
+   ```bash
+   npm start
+  
+5. Open your web browser and visit http://localhost:3000 to use the application.
+  
+***
+
+## Usage
+
+1. Enter the source and destination airports in the provided input fields.
+2. Click the "Find Shortest Path" button to calculate the shortest flight route.
+3. The application will display the shortest path and its length if found, or an error message if no path is available.
+  
+***
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request for any enhancements or bug fixes.
+  
+***
+
+## License
+This project is licensed under the [MIT License](https://github.com/Maverick341/Shortest-FlightRoute-Finder/blob/main/LICENSE).
+
+***
+
+## Future Enhancements
+
+In the future, we plan to enhance the project in the following ways:
+
+- **Improved Visualization**: Implement a graphical representation of the flight network alongside the shortest path for better understanding.
+  
+- **Integration with Google Maps API**: Replace the graphical representation with an actual map using the Google Maps API. This will provide users with a more interactive and real-world view of the flight routes.
+
+   
