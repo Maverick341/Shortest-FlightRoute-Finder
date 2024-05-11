@@ -132,6 +132,12 @@ app.get('/shortest-path', (req, res) => {
             }
 
             airports[sourceAirport].push({ airport: neighborAirport, distance: distance });
+
+            // Add the reverse edge to make the graph undirected
+            if (!airports[neighborAirport]) {
+                airports[neighborAirport] = [];
+            }
+            airports[neighborAirport].push({ airport: sourceAirport, distance: distance });
         });
 
         const shortestPath = calculateShortestPath(source, destination, airports);
