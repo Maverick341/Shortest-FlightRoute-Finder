@@ -4,7 +4,7 @@ This web application is designed to find the shortest flight route between two a
 
 ## Contributors
 
-- [Sushant Shinde](https://github.com/Maverick341) - Lead Developer
+- [Sushant Shinde](https://github.com/Maverick341)
 - [Vardhan Bang](https://github.com/vardhanbang) - Collaborator: Documentation and Coding Ideas
 - [Jaydeep Tayshete](https://github.com/Chefjdeep) - Collaborator: Documentation and Coding Ideas
 
