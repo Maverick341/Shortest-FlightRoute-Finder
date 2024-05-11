@@ -25,14 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const destinationAirport = destinationSelect.value;
 
         // Make a request to the server to calculate shortest path
-        fetch(`/shortest-path?SourceIATA=${sourceAirport}&NeighborIATA=${destinationAirport}`)
+        fetch(`/shortest-path?source=${sourceAirport}&destination=${destinationAirport}`)
             .then(response => response.json())
             .then(shortestPath => {
                 // Check if shortestPath exists (handle case of no path found)
-                if (shortestPath) {
+                if (shortestPath && shortestPath.path) {
                     visualizationContainer.innerHTML = `
                         <p>Shortest Path: ${shortestPath.path.join(' -> ')}</p>
-                        <p>Length: ${shortestPath.length}</p>
+                        <p>Length: ${shortestPath.length} KM </p>
                     `;
                 } else {
                     // Display an error message if no path is found (optional)
