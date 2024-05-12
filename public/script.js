@@ -31,8 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Check if shortestPath exists (handle case of no path found)
                 if (shortestPath && shortestPath.path) {
                     visualizationContainer.innerHTML = `
-                        <p>Shortest Path: ${shortestPath.path.join(' -> ')}</p>
-                        <p>Length: ${shortestPath.length} KM </p>
+                    <div style="text-align: center;">
+                        <p style="font-size: 20px;"><B>Shortest Path: ${shortestPath.path.join(' ➔ ')}</B></p>
+                        <p><B>Length: ${shortestPath.length} KM <B></p>
+                    </div>
                     `;
                 } else {
                     // Display an error message if no path is found (optional)
