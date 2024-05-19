@@ -48,7 +48,12 @@ button:hover {
 }
 
 #visualization-container {
-    margin-top: 20px;
-    width: 100%; /* Adjust width as needed */
-    height: 300px; /* Adjust height as needed */
+    margin-top: 50px;
+    padding: 15px;
+    /* color: white; */
+    width: 96%;
+    height: 100px;
+    border: #ccc none 1px;
+    border-radius: 10px;
+    background: rgba(113, 112, 112, 0.4);
 }
